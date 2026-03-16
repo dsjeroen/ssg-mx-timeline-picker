@@ -1,11 +1,11 @@
-import { createElement, useRef, useCallback, useEffect, useState, ReactElement } from "react";
+import { ReactElement } from "react";
 import {
     minutesToPercent,
     minutesToTimeString,
     positionToMinutes,
     clamp,
-    generateHourLabels,
-} from "../utils/timeUtils";
+    generateHourLabels
+} from "../components/timeUtils";
 
 export interface TimelineTrackProps {
     startMinutes: number;
@@ -30,7 +30,7 @@ export function TimelineTrack({
     readOnly,
     onStartChange,
     onEndChange,
-    onRangeShift,
+    onRangeShift
 }: TimelineTrackProps): ReactElement {
     const trackRef = useRef<HTMLDivElement>(null);
     const [dragTarget, setDragTarget] = useState<DragTarget>(null);
@@ -80,7 +80,18 @@ export function TimelineTrack({
                 onRangeShift(snappedDelta);
             }
         },
-        [dragTarget, getTrackRect, rangeStart, rangeEnd, snapInterval, startMinutes, endMinutes, onStartChange, onEndChange, onRangeShift]
+        [
+            dragTarget,
+            getTrackRect,
+            rangeStart,
+            rangeEnd,
+            snapInterval,
+            startMinutes,
+            endMinutes,
+            onStartChange,
+            onEndChange,
+            onRangeShift
+        ]
     );
 
     const handlePointerUp = useCallback(() => {
@@ -109,25 +120,22 @@ export function TimelineTrack({
 
     return (
         <div className="timeline-track-wrapper">
-            <div
-                ref={trackRef}
-                className={`timeline-track${readOnly ? " timeline-track--readonly" : ""}`}
-            >
+            <div ref={trackRef} className={`timeline-track${readOnly ? " timeline-track--readonly" : ""}`}>
                 {/* Range fill (draggable middle) */}
                 <div
                     className={`timeline-range-fill${readOnly ? " timeline-range-fill--readonly" : ""}`}
                     style={{
                         left: `${startPercent}%`,
-                        width: `${endPercent - startPercent}%`,
+                        width: `${endPercent - startPercent}%`
                     }}
-                    onPointerDown={(e) => handlePointerDown("range", e)}
+                    onPointerDown={e => handlePointerDown("range", e)}
                 />
 
                 {/* Start handle */}
                 <div
                     className={`timeline-handle timeline-handle--start${readOnly ? " timeline-handle--readonly" : ""}`}
                     style={{ left: `${startPercent}%` }}
-                    onPointerDown={(e) => handlePointerDown("start", e)}
+                    onPointerDown={e => handlePointerDown("start", e)}
                     role="slider"
                     aria-label="Start time"
                     aria-valuemin={rangeStart}
@@ -136,9 +144,7 @@ export function TimelineTrack({
                     aria-valuetext={minutesToTimeString(startMinutes)}
                     tabIndex={readOnly ? -1 : 0}
                 >
-                    <span
-                        className={`timeline-tooltip${showStartTooltip ? " timeline-tooltip--visible" : ""}`}
-                    >
+                    <span className={`timeline-tooltip${showStartTooltip ? " timeline-tooltip--visible" : ""}`}>
                         {minutesToTimeString(startMinutes)}
                     </span>
                 </div>
@@ -147,7 +153,7 @@ export function TimelineTrack({
                 <div
                     className={`timeline-handle timeline-handle--end${readOnly ? " timeline-handle--readonly" : ""}`}
                     style={{ left: `${endPercent}%` }}
-                    onPointerDown={(e) => handlePointerDown("end", e)}
+                    onPointerDown={e => handlePointerDown("end", e)}
                     role="slider"
                     aria-label="End time"
                     aria-valuemin={rangeStart}
@@ -156,9 +162,7 @@ export function TimelineTrack({
                     aria-valuetext={minutesToTimeString(endMinutes)}
                     tabIndex={readOnly ? -1 : 0}
                 >
-                    <span
-                        className={`timeline-tooltip${showEndTooltip ? " timeline-tooltip--visible" : ""}`}
-                    >
+                    <span className={`timeline-tooltip${showEndTooltip ? " timeline-tooltip--visible" : ""}`}>
                         {minutesToTimeString(endMinutes)}
                     </span>
                 </div>
@@ -166,12 +170,8 @@ export function TimelineTrack({
 
             {/* Hour tick marks */}
             <div className="timeline-ticks">
-                {hourLabels.map((tick) => (
-                    <div
-                        key={tick.minutes}
-                        className="timeline-tick"
-                        style={{ left: `${tick.percent}%` }}
-                    >
+                {hourLabels.map(tick => (
+                    <div key={tick.minutes} className="timeline-tick" style={{ left: `${tick.percent}%` }}>
                         <div className="timeline-tick__line" />
                         <span className="timeline-tick__label">{tick.label}</span>
                     </div>
