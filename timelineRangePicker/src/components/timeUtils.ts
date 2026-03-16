@@ -63,7 +63,9 @@ export function positionToMinutes(
 /** Convert minutes to a percentage position within the range */
 export function minutesToPercent(minutes: number, rangeStart: number, rangeEnd: number): number {
     const span = rangeEnd - rangeStart;
-    if (span <= 0) return 0;
+    if (span <= 0) {
+        return 0;
+    }
     return clamp(((minutes - rangeStart) / span) * 100, 0, 100);
 }
 
@@ -88,7 +90,11 @@ export function generateHourLabels(
 export function formatDuration(minutes: number): string {
     const h = Math.floor(minutes / 60);
     const m = minutes % 60;
-    if (h === 0) return `${m}m`;
-    if (m === 0) return `${h}h`;
+    if (h === 0) {
+        return `${m}m`;
+    }
+    if (m === 0) {
+        return `${h}h`;
+    }
     return `${h}h ${m}m`;
 }

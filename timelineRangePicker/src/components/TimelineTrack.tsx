@@ -1,4 +1,12 @@
-import { createElement, useRef, useCallback, useEffect, useState, ReactElement } from "react";
+import {
+    createElement,
+    useRef,
+    useCallback,
+    useEffect,
+    useState,
+    ReactElement,
+    PointerEvent as ReactPointerEvent
+} from "react";
 import { minutesToPercent, minutesToTimeString, positionToMinutes, clamp, generateHourLabels } from "./timeUtils";
 
 export interface TimelineTrackProps {
@@ -37,8 +45,10 @@ export function TimelineTrack({
 
     // --- Pointer handlers ---
     const handlePointerDown = useCallback(
-        (target: DragTarget, e: React.PointerEvent) => {
-            if (readOnly) return;
+        (target: DragTarget, e: ReactPointerEvent) => {
+            if (readOnly) {
+                return;
+            }
             e.preventDefault();
             e.stopPropagation();
             (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
@@ -54,9 +64,13 @@ export function TimelineTrack({
 
     const handlePointerMove = useCallback(
         (e: PointerEvent) => {
-            if (!dragTarget) return;
+            if (!dragTarget) {
+                return;
+            }
             const rect = getTrackRect();
-            if (!rect) return;
+            if (!rect) {
+                return;
+            }
 
             if (dragTarget === "start") {
                 const mins = positionToMinutes(e.clientX, rect, rangeStart, rangeEnd, snapInterval);
