@@ -134,11 +134,7 @@ export default function TimelineRangePicker(props: TimelineRangePickerContainerP
                 onEndChange={handleEndChange}
                 onRangeShift={handleRangeShift}
             />
-            <TimeBadges
-                startMinutes={startMins}
-                endMinutes={endMins}
-                durationMinutes={durationMins}
-            />
+            <TimeBadges startMinutes={startMins} endMinutes={endMins} durationMinutes={durationMins} />
         </div>
     );
 }
