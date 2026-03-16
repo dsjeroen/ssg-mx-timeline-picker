@@ -5,7 +5,7 @@ const SNAP_MAP: Record<SnapMinutesEnum, number> = {
     one: 1,
     five: 5,
     fifteen: 15,
-    thirty: 30,
+    thirty: 30
 };
 
 /** Resolve snap enum to numeric minutes */
@@ -77,13 +77,12 @@ export function generateHourLabels(
     rangeEnd: number
 ): Array<{ minutes: number; label: string; percent: number }> {
     const labels: Array<{ minutes: number; label: string; percent: number }> = [];
-    // Start from the first full hour at or after rangeStart
     const firstHour = Math.ceil(rangeStart / 60) * 60;
     for (let m = firstHour; m <= rangeEnd; m += 60) {
         labels.push({
             minutes: m,
             label: minutesToTimeString(m),
-            percent: minutesToPercent(m, rangeStart, rangeEnd),
+            percent: minutesToPercent(m, rangeStart, rangeEnd)
         });
     }
     return labels;

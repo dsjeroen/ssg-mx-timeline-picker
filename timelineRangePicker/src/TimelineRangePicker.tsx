@@ -11,8 +11,8 @@ import {
     calcDuration,
     clamp,
     getSnapValue,
-    snapToInterval,
-} from "./utils/timeUtils";
+    snapToInterval
+} from "./components/timeUtils";
 
 import "./ui/TimelineRangePicker.css";
 
@@ -27,7 +27,7 @@ export default function TimelineRangePicker(props: TimelineRangePickerContainerP
         duration,
         rangeStart,
         rangeEnd,
-        snapMinutes,
+        snapMinutes
     } = props;
 
     const snapInterval = getSnapValue(snapMinutes);
@@ -107,7 +107,6 @@ export default function TimelineRangePicker(props: TimelineRangePickerContainerP
     );
 
     // Update range-shift origin when not actively dragging
-    // (this is re-captured on pointerdown in the track component)
     rangeShiftOrigin.current = { start: startMins, end: endMins };
 
     const durationMins = calcDuration(startMins, endMins);

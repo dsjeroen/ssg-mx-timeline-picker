@@ -1,5 +1,5 @@
-import { ReactElement } from "react";
-import { minutesToTimeString, formatDuration } from "../components/timeUtils";
+import { createElement, ReactElement } from "react";
+import { minutesToTimeString, formatDuration } from "./timeUtils";
 
 export interface TimeBadgesProps {
     startMinutes: number;
